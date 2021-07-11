@@ -1,3 +1,4 @@
+import { Button } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import "./style.scss";
@@ -45,7 +46,7 @@ function Quiz(props){
             result: null
         }
     ])
-    const { setCurrent } = props;
+    const { setCurrent, setResult } = props;
     const [ active, setActive ] = useState(1);
     const [ data, setData ] = useState([]);
     const [ loading, setLoading ] = useState(true);
@@ -112,16 +113,22 @@ function Quiz(props){
 
     //timer
     useEffect(() =>{
-        const time = timer > 0 &&
+        const time = timer > 0 ?
         setInterval(() => {
             if(timer > 0){
                 setTimer(timer-1)
-            }else{
-
             }
-        }, 1000);
+        }, 1000):finish()
         return () => clearInterval(time)
     }, [timer]);
+
+    const finish = async() =>{
+        const successArray = numbers.filter(num => num.result === true);
+        const result = { point: successArray.length, max: data.length };
+        setResult(result);
+        setCurrent("result");
+        console.log(successArray);
+    };
 
     return(
         <div className="quiz">
@@ -146,6 +153,9 @@ function Quiz(props){
                 </div>
             </div>
             <div className="timer"> {timer} </div>
+            <div className="btn-finish">
+                <Button onClick={finish} type="primary">Terminer</Button>
+            </div>
         </div>
     )
 };

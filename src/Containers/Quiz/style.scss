@@ -72,4 +72,22 @@
     width: 100px;
     margin: auto;
     margin-top: 20px;
+    opacity: 0.3;
+}
+.result
+{
+    width: 800px;
+    min-height: 500px;
+    color: black;
+    background-color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.result-bar
+{
+    width: 70px;
+    border-bottom: 1px solid #000;
+    transform: rotate(160deg);
+    margin-left: 20px;
 }
